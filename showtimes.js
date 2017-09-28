@@ -2,7 +2,6 @@ const express = require('express');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const request = require('request');
-
 const app = express();
 
 let url = `http://www.imdb.com/showtimes/cinema/US/ci0001898/US/08820?ref_=sh_ov_th`;
@@ -32,5 +31,4 @@ request(url,(err, resp, body) => {
     console.log(movieArray);
 
 
-//     request(url).pipe(fs.createWriteStream('videos/' + vidTitle + '.mp4'));
 });
