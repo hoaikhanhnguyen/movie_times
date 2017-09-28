@@ -1,0 +1,23 @@
+{
+  "name": "movie_times",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoaikhanhnguyen/movie_times.git"
+  },
+  "author": "Khanh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoaikhanhnguyen/movie_times/issues"
+  },
+  "homepage": "https://github.com/hoaikhanhnguyen/movie_times#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.5"
+  }
+}
