@@ -25,13 +25,6 @@ request(url,(err, resp, body) => {
     });
     console.log(movieTheaterArray);
 
-//video title
-//     let vidTitle = $('body > div.search-result-content > div > div:nth-child(1) > div.item-3 > p:nth-child(3)').text();
-//     console.log('video title', vidTitle);
-//
-// // console.log(linkArray);
-//     let url = linkArray[0];
-//     console.log(url);
 //     request(url).pipe(fs.createWriteStream('videos/' + vidTitle + '.mp4'));
 });
 
