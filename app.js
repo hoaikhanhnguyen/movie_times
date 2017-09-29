@@ -11,8 +11,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-
-app.post('/scrape', (req, res) => {
+app.post('/theaters', (req, res) => {
     // req.body
     // .ajax request has a data object
     // e.g. data: { name: "Andy", car: "Sucks" }
@@ -38,19 +37,43 @@ app.post('/scrape', (req, res) => {
             theater.showtimes_url = $(element).attr('href');
             movieTheaterArray.push(theater);
         });
-        console.log(movieTheaterArray);
-        fs.writeFile('output.json', JSON.stringify(movieTheaterArray, null, 4), (err) => {
-            console.log('File successfully written - Check  project directory for the output.json file');
+        console.log('first theater', movieTheaterArray[0]);
+        console.log('movieTheaterArray.length', movieTheaterArray.length);
+        res.json({ movieTheaterArray });
 
+    });
+});
+
+app.post('/showtimes', (req, res) => {
+    let url = `http://www.imdb.com/showtimes/cinema/US/ci0001898/US/08820?ref_=sh_ov_th`;
+
+    request(url, (err, resp, body) => {
+        if (err) {
+            console.log('Error connecting to site', err);
+        }
+
+        let $ = cheerio.load(body);
+        let movieArray = [];
+        let dateUrlArray = [];
+
+        $('.datepicker a[href^="/showtimes/cinema"]').each((i, element) => {
+            let movieDate = $(element).attr("href");
+            dateUrlArray.push(movieDate)
         });
+        console.log(dateUrlArray);
 
-        res.json({"Success": true, "data": movieTheaterArray});
-
+        $('.showtimes div a').each((i, element) => {
+            let movie = {};
+            movie.movie_name = $(element).attr("data-title");
+            movie.show_times = $(element).attr("data-times").split('|');
+            movie.duration = $(element).parent().parent().siblings('p ').children('time').text();
+            movieArray.push(movie);
+        });
+        console.log(movieArray);
+        res.json({ movieArray });
     });
 
-    // res.send('Check console');
-    });
-
+});
 app.listen(3030, () => {
     console.log('Running on ', 3030);
 });
